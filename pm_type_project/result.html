@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>나랑 찰떡인 기획자 유형은::천재IT교육센터</title>
+    <base href="/">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/common.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="card">
+        <span id="user-result" class="card__title">당신의 결과는</span>
+        <p class="card__content">
+        <div id="result">결과를 불러오는 중입니다...</div>
+        </p>
+        <button id="captureBtn" class="card__button">
+          <span class="button-text">공유하기!</span>
+        </button>
+        <button class="card__button" onclick="startTest()">
+          <span class="button-text">다시하기!</span>
+        </button>
+        </form>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const userName = localStorage.getItem("user_name");
+        const resultTitle = document.getElementById("user-result");
+        if (userName && resultTitle) {
+          resultTitle.textContent = `${userName} 님의 결과는`;
+        }
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        renderResult(); // DOM이 로드된 이후에 결과 출력
+      });
+
+      function startTest() {
+        // 기존 점수 초기화
+        if (localStorage.getItem("pm_score")) {
+          localStorage.removeItem("pm_score");
+        }
+        // 첫 질문 페이지로 이동
+        location.href = "index.html";
+      }
+      // document.getElementById("captureBtn").addEventListener("click", () => {
+      //   const captureTarget = document.getElementById("wrapper");
+      //   html2canvas(captureTarget).then(canvas => {
+      //     const link = document.createElement('a');
+      //     link.download = 'my_result.webp';
+      //     link.href = canvas.toDataURL('image/png');
+      //     link.click();
+      //   });
+      // });
+      document.getElementById("captureBtn").addEventListener("click", async () => {
+        const target = document.body; // 또는 document.getElementById("wrapper")
+        try {
+          const canvas = await html2canvas(target, {
+            useCORS: true,
+          });
+          const dataURL = canvas.toDataURL("image/jpg");
+          // 다운로드 링크 생성
+          const link = document.createElement("a");
+          link.href = dataURL;
+          link.download = "result.jpg";
+          // 사용자 행동으로 클릭 유도
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (err) {
+          console.error("캡처 실패:", err);
+          alert("이미지를 저장하는 데 실패했습니다.");
+        }
+      });
+    </script>
+  </body>
+</html>

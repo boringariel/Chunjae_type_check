@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>나랑 찰떡인 기획자 유형은::천재IT교육센터</title>
+    <base href="/">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/common.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="card">
+        <span id="user-result" class="card__title"></span>
+        <span class="card__title" style="font-size: 28px;">"내 아이디어는 마치 <br />트랄랄렐로 트랄랄라" </span>
+        <p class="card__content">
+          <center>
+            <img src="/static/image/type_idea.webp" style="max-height: 180px;">
+          </center>
+        </p>
+        <div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+          <image src="/static/image/shower1.webp" width=64px>
+            <p>블루투스 샤워기보다 현실적이니까 <br /> 아마 되지 않을까요...? </p>
+            <image src="/static/image/shower2.webp" width=64px>
+        </div>
+        <p>상상력이 샘솟는 당신! 과학자가 아니더라도 충분히 상상력을 발휘할 수 있는 무대가 있다는걸 알고 계신가요? 지금까지 없던 서비스를 개발하는 기획자의 길로 드루와드루와~</p>
+        <p>
+          <b>한 줄 피드백: <br />"아이디어에 쏟는 에너지를 기획서에 조금만 옮겨보세요!" </b>
+        </p>
+        <center>
+          <p>▼내가 기획자 소질이 있는지 궁금하다면▼</p>
+        </center>
+        <a href="https://www.genia.academy/pm">
+          <button class="card__button">
+            <span class="button-text">무조건 OK 받는 기획 배우는 <br />PM 교육과정 알아보기 </span>
+          </button>
+        </a>
+        <button id="captureBtn" class="card__button">
+          <span class="button-text">공유하기!</span>
+        </button>
+        <button class="card__button" onclick="startTest()">
+          <span class="button-text">다시하기!</span>
+        </button>
+        </form>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const userName = localStorage.getItem("user_name");
+        const resultTitle = document.getElementById("user-result");
+        if (userName && resultTitle) {
+          resultTitle.textContent = `아이디어 과몰입형 PM인 ${userName}!`;
+        }
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        renderResult(); // DOM이 로드된 이후에 결과 출력
+      });
+
+      function startTest() {
+        // 기존 점수 초기화
+        if (localStorage.getItem("pm_score")) {
+          localStorage.removeItem("pm_score");
+        }
+        // 첫 질문 페이지로 이동
+        location.href = "index.html";
+      }
+      document.getElementById("captureBtn").addEventListener("click", async () => {
+        const target = document.body; // 또는 document.getElementById("wrapper")
+        try {
+          const canvas = await html2canvas(target, {
+            useCORS: true,
+          });
+          const dataURL = canvas.toDataURL("image/jpg");
+          // 다운로드 링크 생성
+          const link = document.createElement("a");
+          link.href = dataURL;
+          link.download = "result.jpg";
+          // 사용자 행동으로 클릭 유도
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (err) {
+          console.error("캡처 실패:", err);
+          alert("이미지를 저장하는 데 실패했습니다.");
+        }
+      });
+    </script>
+  </body>
+</html>

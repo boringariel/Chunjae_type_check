@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>PM 유형 테스트 최소 예제</title>
+</head>
+<body>
+  <h1>테스트 질문</h1>
+  <p id="question">"아이디어" 선택 A, "숫자" 선택 B</p>
+  <button id="btnA">A 선택 (아이디어 +1)</button>
+  <button id="btnB">B 선택 (숫자 +1)</button>
+
+  <p>현재 누적 점수:</p>
+  <pre id="score"></pre>
+
+  <script>
+    // 초기 점수 없으면 0으로 세팅
+    function getScores() {
+      const raw = localStorage.getItem("pm_score");
+      if (!raw) {
+        return { 아이디어: 0, 숫자: 0 };
+      }
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return { 아이디어: 0, 숫자: 0 };
+      }
+    }
+
+    // 점수 저장 및 누적
+    function saveScore(newScore) {
+      const prev = getScores();
+      for (const k in newScore) {
+        if (typeof prev[k] !== "number") prev[k] = 0;
+        prev[k] += newScore[k];
+      }
+      localStorage.setItem("pm_score", JSON.stringify(prev));
+      showScores();
+    }
+
+    // 화면에 점수 출력
+    function showScores() {
+      const score = getScores();
+      document.getElementById("score").textContent = JSON.stringify(score, null, 2);
+    }
+
+    document.getElementById("btnA").addEventListener("click", () => {
+      saveScore({ 아이디어: 1 });
+    });
+
+    document.getElementById("btnB").addEventListener("click", () => {
+      saveScore({ 숫자: 1 });
+    });
+
+    // 초기 화면에 점수 보여주기
+    showScores();
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+.wrapper {
+  flex-direction: column;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+
+.card {
+  width: 300px;
+  padding: 20px;
+  background: #fff;
+  border: 6px solid #000;
+  box-shadow: 12px 12px 0 #000;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card__title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #000;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.card__title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  height: 3px;
+  background-color: #000;
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+}
+
+.card:hover .card__title::after {
+  transform: translateX(0);
+}
+
+.card__content {
+  font-size: 16px;
+  line-height: 1.4;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.card__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card__form input {
+  padding: 10px;
+  border: 3px solid #000;
+  font-size: 16px;
+  font-family: inherit;
+  transition: transform 0.3s;
+  width: calc(100% - 26px); /* Adjust for padding and border */
+}
+
+.card__form input:focus {
+  outline: none;
+  transform: scale(1.05);
+  background-color: #000;
+  color: #ffffff;
+}
+
+.card__button {
+  margin-bottom: 5px;
+  border: 3px solid #000;
+  background: #000;
+  color: #fff;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+  width: 100%;
+}
+
+.card__button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 105%;
+  background-color: #5ad641;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+  z-index: 0;
+}
+
+.card__button:hover::before {
+  transform: translateY(0);
+}
+
+.button-text {
+  position: relative;
+  z-index: 1;
+  color: #fff; /* 기본 텍스트 색상 */
+}
+
+.card__button:active {
+  transform: scale(0.95);
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(2px, 2px);
+  }
+  25% {
+    transform: translate(-2px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(2px, 2px);
+  }
+}
+
+.glitch {
+  animation: glitch 0.3s infinite;
+}

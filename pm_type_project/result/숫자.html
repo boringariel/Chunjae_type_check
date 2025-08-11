@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>나랑 찰떡인 기획자 유형은::천재IT교육센터</title>
+    <base href="/">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/common.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="card">
+        <span id="user-result" class="card__title"></span>
+        <span class="card__title" style="font-size: 28px;">"표가 없으면 불안해요"</span>
+        <p class="card__content">
+          <center>
+            <img src="/static/image/type_number.webp" style="max-height: 180px;">
+          </center>
+        </p>
+        <div style="display: flex; flex-direction: row; align-items: center; gap: 10px;">
+          <image src="/static/image/bono.webp" width=64px>
+            <p>발표할 때 그래프는 필수! <br /> 무지개색 보노보노 PPT 정도는 봐주세요~ </p>
+        </div>
+        <p>무조건 정확한 데이터가 우선인 당신! 데이터 기반 사고는 기획자의 필수 역량이라는 사실 아시나요? 정확한 그래프와 데이터는 모두가 이해할 수 있답니다. 누구나 탐내는 그 능력! 기획자가 되어서 발휘해 보면 좋을거예요~</p>
+        <p>
+          <b>한 줄 피드백: <br />"데이터도 좋지만, 사람도 좀 봐줘요...👀" </b>
+        </p>
+        <br />
+        <center>
+          <p>▼내가 기획자 소질이 있는지 궁금하다면▼</p>
+        </center>
+        <a href="https://www.genia.academy/pm">
+          <button class="card__button">
+            <span class="button-text">협업 끝판왕 <br />PM 교육과정 알아보기 </span>
+          </button>
+        </a>
+        <button id="captureBtn" class="card__button">
+          <span class="button-text">공유하기!</span>
+        </button>
+        <button class="card__button" onclick="startTest()">
+          <span class="button-text">다시하기!</span>
+        </button>
+        </form>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const userName = localStorage.getItem("user_name");
+        const resultTitle = document.getElementById("user-result");
+        if (userName && resultTitle) {
+          resultTitle.textContent = `숫자 조련사형 PM인 ${userName}!`;
+        }
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        renderResult(); // DOM이 로드된 이후에 결과 출력
+      });
+
+      function startTest() {
+        // 기존 점수 초기화
+        if (localStorage.getItem("pm_score")) {
+          localStorage.removeItem("pm_score");
+        }
+        // 첫 질문 페이지로 이동
+        location.href = "index.html";
+      }
+      document.getElementById("captureBtn").addEventListener("click", async () => {
+        const target = document.body; // 또는 document.getElementById("wrapper")
+        try {
+          const canvas = await html2canvas(target, {
+            useCORS: true,
+          });
+          const dataURL = canvas.toDataURL("image/jpg");
+          // 다운로드 링크 생성
+          const link = document.createElement("a");
+          link.href = dataURL;
+          link.download = "result.jpg";
+          // 사용자 행동으로 클릭 유도
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (err) {
+          console.error("캡처 실패:", err);
+          alert("이미지를 저장하는 데 실패했습니다.");
+        }
+      });
+    </script>
+  </body>
+</html>
