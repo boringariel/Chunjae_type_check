@@ -1,91 +1,94 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <title>나랑 찰떡인 기획자 유형은::천재IT교육센터</title>
-    <base href="/">
-    <link rel="stylesheet" href="/static/style.css">
-    <script src="/static/common.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="card">
-        <span id="user-result" class="card__title"></span>
-        <span class="card__title" style="font-size: 28px;">"쉬지 말고 어서 달려!"</span>
-        <p class="card__content">
-          <center>
-            <img src="/static/image/type_schedule.webp" style="max-height: 180px;">
-          </center>
-        </p>
-        <center>
-          <image src="/static/image/post.webp" width=240px>
-        </center>
-        <br />
-        <p>하지만 마감일은 기다려주지 않아 ㅠㅠ</p>
-        <p>한 치의 오차도 없는 일정에 만족하는 당신! 일잘러의 기본소양을 가지고 계시군요? 정확한 일정관리 스킬을 배운다면 상사뿐만이 아니라 모두에게 사랑받는 기획자가 될 수 있을거예요~</p>
-        <p>
-          <b>한 줄 피드백: <br />"유연함도 PM의 중요한 역량이예요" </b>
-        </p>
-        <center>
-          <p>▼내가 기획자 소질이 있는지 궁금하다면▼</p>
-        </center>
-        <a href="https://www.genia.academy/pm">
-          <button class="card__button">
-            <span class="button-text">야근 안하는 프로젝트 진행! <br />PM 교육과정 알아보기 </span>
-          </button>
-        </a>
-        <button id="captureBtn" class="card__button">
-          <span class="button-text">공유하기!</span>
-        </button>
-        <button class="card__button" onclick="startTest()">
-          <span class="button-text">다시하기!</span>
-        </button>
-        </form>
-      </div>
-    </div>
-    <script src="script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const userName = localStorage.getItem("user_name");
-        const resultTitle = document.getElementById("user-result");
-        if (userName && resultTitle) {
-          resultTitle.textContent = `일정관리 마스터 PM인 ${userName}!`;
-        }
-      });
-      document.addEventListener("DOMContentLoaded", () => {
-        renderResult(); // DOM이 로드된 이후에 결과 출력
-      });
 
-      function startTest() {
-        // 기존 점수 초기화
-        if (localStorage.getItem("pm_score")) {
-          localStorage.removeItem("pm_score");
-        }
-        // 첫 질문 페이지로 이동
-        location.href = "index.html";
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>나랑 찰떡인 기획자 유형은::천재IT교육센터</title>
+  <base href="/">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/common.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <span id="user-result" class="card__title"></span>
+      <span class="card__title">"쉬지 말고 어서 달려!"</span>
+      <p class="card__content">
+        <center>
+          <img src="/static/image/type_schedule.webp" style="max-height: 180px;">
+        </center>
+      </p>
+      <center>
+        <image src="/static/image/post.webp" width=240px>
+      </center>
+      <br />
+      <p>하지만 마감일은 기다려주지 않아 ㅠㅠ</p>
+      <p>한 치의 오차도 없는 일정에 만족하는 당신! 일잘러의 기본소양을 가지고 계시군요? 정확한 일정관리 스킬을 배운다면 상사뿐만이 아니라 모두에게 사랑받는 기획자가 될 수 있을거예요~</p>
+      <p>
+        <b>한 줄 피드백: <br />"유연함도 PM의 중요한 역량이예요" </b>
+      </p>
+      <center>
+        <p>▼내가 기획자 소질이 있는지 궁금하다면▼</p>
+      </center>
+      <a href="https://www.genia.academy/pm">
+        <button class="card__button">
+          <span class="button-text">야근 안하는 프로젝트 진행! <br />PM 교육과정 알아보기 </span>
+        </button>
+      </a>
+      <button id="captureBtn" class="card__button">
+        <span class="button-text">공유하기!</span>
+      </button>
+      <button class="card__button" onclick="startTest()">
+        <span class="button-text">다시하기!</span>
+      </button>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const userName = localStorage.getItem("user_name");
+      const resultTitle = document.getElementById("user-result");
+      if (userName && resultTitle) {
+        resultTitle.textContent = `일정관리 마스터 PM인 ${userName}!`;
       }
-      document.getElementById("captureBtn").addEventListener("click", async () => {
-        const target = document.body; // 또는 document.getElementById("wrapper")
-        try {
-          const canvas = await html2canvas(target, {
-            useCORS: true,
-          });
-          const dataURL = canvas.toDataURL("image/jpg");
-          // 다운로드 링크 생성
-          const link = document.createElement("a");
-          link.href = dataURL;
-          link.download = "result.jpg";
-          // 사용자 행동으로 클릭 유도
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } catch (err) {
-          console.error("캡처 실패:", err);
-          alert("이미지를 저장하는 데 실패했습니다.");
-        }
-      });
-    </script>
-  </body>
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+      renderResult(); // DOM이 로드된 이후에 결과 출력
+    });
+
+    function startTest() {
+      // 기존 점수 초기화
+      if (localStorage.getItem("pm_score")) {
+        localStorage.removeItem("pm_score");
+      }
+      // 첫 질문 페이지로 이동
+      location.href = "index.html";
+    }
+    document.getElementById("captureBtn").addEventListener("click", async () => {
+      const target = document.body; // 또는 document.getElementById("wrapper")
+      try {
+        const canvas = await html2canvas(target, {
+          useCORS: true,
+        });
+        const dataURL = canvas.toDataURL("image/jpg");
+        // 다운로드 링크 생성
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = "result.jpg";
+        // 사용자 행동으로 클릭 유도
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (err) {
+        console.error("캡처 실패:", err);
+        alert("이미지를 저장하는 데 실패했습니다.");
+      }
+    });
+  </script>
+</body>
+
 </html>
