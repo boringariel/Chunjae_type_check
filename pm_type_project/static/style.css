@@ -9,7 +9,7 @@
 }
 
 .card {
-  width: 300px;
+  width: 280px;
   padding: 20px;
   background: #fff;
   border: 6px solid #000;
@@ -63,7 +63,8 @@
   font-size: 16px;
   font-family: inherit;
   transition: transform 0.3s;
-  width: calc(100% - 26px); /* Adjust for padding and border */
+  width: calc(100% - 26px);
+  /* Adjust for padding and border */
 }
 
 .card__form input:focus {
@@ -109,7 +110,8 @@
 .button-text {
   position: relative;
   z-index: 1;
-  color: #fff; /* 기본 텍스트 색상 */
+  color: #fff;
+  /* 기본 텍스트 색상 */
 }
 
 .card__button:active {
@@ -120,15 +122,19 @@
   0% {
     transform: translate(2px, 2px);
   }
+
   25% {
     transform: translate(-2px, -2px);
   }
+
   50% {
     transform: translate(-2px, 2px);
   }
+
   75% {
     transform: translate(2px, -2px);
   }
+
   100% {
     transform: translate(2px, 2px);
   }
